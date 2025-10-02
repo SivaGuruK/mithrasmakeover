@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 
 const BookingForm = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm()
   const location = useLocation()
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ const totalAmount = selectedServices.reduce((total, serviceId) => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/api/services')
+        const response = await axios.get(`${API_BASE}/api/services`)
         setServices(response.data.data)
       } catch (error) {
         console.error('Error fetching services:', error)

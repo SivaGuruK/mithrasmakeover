@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [heroData, setHeroData] = useState(null);
 
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const res = await axios.get('/api/content/hero');
+        const res = await axios.get(`${API_BASE}/api/content/hero`);
         setHeroData(res.data.data?.data);
       } catch (err) {
         console.error('Failed to fetch hero content', err);

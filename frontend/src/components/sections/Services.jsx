@@ -7,7 +7,7 @@ import { useState ,useEffect} from 'react';
 
 
 const Services = () => {
-
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
   const [services, setServices] = useState([])
   const [loading, setLoading] = useState(true)
@@ -15,7 +15,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/api/services')
+        const response = await axios.get(`${API_BASE}/api/services`)
         setServices(response.data.data)
       } catch (error) {
         console.error('Error fetching services:', error)

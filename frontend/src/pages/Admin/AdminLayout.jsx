@@ -20,6 +20,7 @@ import { isAuthenticated, removeToken } from '../../utils/auth'
 import toast from 'react-hot-toast'
 
 const AdminLayout = () => {
+  
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()

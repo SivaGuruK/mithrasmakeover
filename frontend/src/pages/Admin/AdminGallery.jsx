@@ -8,6 +8,7 @@ import { getToken } from "../../utils/auth"
 
 
 const AdminGallery = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [galleryItems, setGalleryItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
@@ -21,7 +22,7 @@ const AdminGallery = () => {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await axios.get('/api/gallery',{
+        const response = await axios.get(`${API_BASE}/api/gallery`, {
                         headers: {
                           Authorization: `Bearer ${getToken()}`
                         }})
@@ -64,7 +65,7 @@ const AdminGallery = () => {
   const handleDeleteImage = async (itemId) => {
     if (window.confirm('Are you sure you want to delete this Media?')) {
       try {
-        await axios.delete(`/api/gallery/${itemId}`,{
+        await axios.delete(`${API_BASE}/api/gallery/${itemId}`,{
                         headers: {
                           Authorization: `Bearer ${getToken()}`
                         }})
@@ -122,7 +123,7 @@ const handleMediaUpload = (event) => {
 
     if (editingItem) {
       await axios.put(
-        `/api/gallery/${editingItem._id}`,
+        `${API_BASE}/api/gallery/${editingItem._id}`,
         formData,
         {
           headers: {
@@ -135,7 +136,7 @@ const handleMediaUpload = (event) => {
       toast.success('Media updated successfully');
     } else {
       const response = await axios.post(
-        '/api/gallery',
+        `${API_BASE}/api/gallery`,
         formData,
         {
           headers: {

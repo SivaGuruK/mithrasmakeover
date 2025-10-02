@@ -15,6 +15,8 @@ import axios from 'axios'
 import { getToken } from "../../utils/auth"
 
 const AdminAnalytics = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
   const [analytics, setAnalytics] = useState(null)
   const [loading, setLoading] = useState(true)
   const [timeframe, setTimeframe] = useState('30')
@@ -23,7 +25,7 @@ const AdminAnalytics = () => {
     const fetchAnalytics = async () => {
       try {
         const response = await axios.get(
-          `/api/analytics/dashboard?timeframe=${timeframe}`,
+          `${API_BASE}/api/analytics/dashboard?timeframe=${timeframe}`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`

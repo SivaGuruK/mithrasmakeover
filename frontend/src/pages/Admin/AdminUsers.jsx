@@ -7,6 +7,7 @@ import { getToken } from "../../utils/auth"
 
 
 const AdminUsers = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -18,7 +19,7 @@ const AdminUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          `/api/admin/users?page=${currentPage}&limit=${usersPerPage}&search=${searchTerm}`,
+          `${API_BASE}/api/admin/users?page=${currentPage}&limit=${usersPerPage}&search=${searchTerm}`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`
@@ -43,7 +44,7 @@ const AdminUsers = () => {
   const handleToggleUserStatus = async (userId, currentStatus) => {
     try {
       await axios.put(
-        `/api/admin/users/${userId}/toggle-status`,
+        `${API_BASE}/api/admin/users/${userId}/toggle-status`,
         {},
         {
           headers: {

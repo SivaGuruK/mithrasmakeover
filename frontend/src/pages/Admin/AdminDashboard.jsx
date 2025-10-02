@@ -18,6 +18,7 @@ import { getToken } from "../../utils/auth"
 
 
 const AdminDashboard = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [loading, setLoading] = useState(true)
   const [dashboardData, setDashboardData] = useState({
     overview: {
@@ -36,7 +37,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('/api/admin/dashboard', {
+        const response = await axios.get(`${API_BASE}/api/admin/dashboard`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         })
         setDashboardData(response.data.data)

@@ -7,6 +7,8 @@ import axios from 'axios'
 import { getToken } from "../../utils/auth"
 
 const AdminBookings = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedBooking, setSelectedBooking] = useState(null)
@@ -15,7 +17,7 @@ const AdminBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`/api/bookings?status=${statusFilter}`,{
+        const response = await axios.get(`${API_BASE}/api/bookings?status=${statusFilter}`,{
                 headers: {
                   Authorization: `Bearer ${getToken()}`
                 }})
@@ -33,7 +35,7 @@ const AdminBookings = () => {
 
   const handleStatusUpdate = async (bookingId, newStatus) => {
     try {
-      await axios.put(`/api/bookings/${bookingId}/status`, { status: newStatus },{
+      await axios.put(`${API_BASE}/api/bookings/${bookingId}/status`, { status: newStatus },{
               headers: {
                 Authorization: `Bearer ${getToken()}`
               }})

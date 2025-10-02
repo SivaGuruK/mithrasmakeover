@@ -8,6 +8,7 @@ import { getToken } from "../../utils/auth"
 
 
 const AdminContent = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [selectedSection, setSelectedSection] = useState('hero')
   const [content, setContent] = useState({})
   const [loading, setLoading] = useState(true)
@@ -25,7 +26,7 @@ const AdminContent = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await axios.get('/api/content',{
+        const response = await axios.get(`${API_BASE}/api/content`,{
                                 headers: {
                                   Authorization: `Bearer ${getToken()}`
                                 }})
@@ -63,54 +64,6 @@ const AdminContent = () => {
       })
     }
   }, [selectedSection, content, setValue, reset])
-
-
-// const onSubmit = async (formValues) => {
-//   const formData = new FormData();
-
-//   // Determine which section is active
-//   const section = selectedSection;
-
-//   // 🔁 Handle section-specific fields
-//   if (section === 'hero') {
-//     formData.append('title', formValues.title);
-//     formData.append('subtitle', formValues.subtitle);
-//     formData.append('primaryButton', formValues.primaryButton);
-//     formData.append('secondaryButton', formValues.secondaryButton);
-//   }
-
-//   if (section === 'about') {
-//     formData.append('title', formValues.title);
-//     formData.append('description', formValues.description);
-//     formData.append('stats[happyBrides]', formValues.stats?.happyBrides || '');
-//     formData.append('stats[yearsExperience]', formValues.stats?.yearsExperience || '');
-//     formData.append('stats[certification]', formValues.stats?.certification || '');
-//     formData.append('stats[specialization]', formValues.stats?.specialization || '');
-//   }
-
-// if (formValues.image instanceof File) {
-//   formData.append('image', formValues.image);
-// } else if (typeof formValues.image === 'string') {
-//   // Pass existing image URL back to retain it
-//   formData.append('existingImage', formValues.image);
-// }
-
-
-//   try {
-//     const res = await axios.put(`/api/content/${section}`, formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data',
-//         Authorization: `Bearer ${getToken()}`,
-//       },
-//     });
-
-//     console.log(`${section} content updated:`, res.data);
-//     toast.success(`${section.charAt(0).toUpperCase() + section.slice(1)} section updated!`);
-//   } catch (error) {
-//     console.error(error);
-//     toast.error('Update failed!');
-//   }
-// };
 
 const onSubmit = async (formValues) => {
   setSaving(true);
@@ -162,7 +115,7 @@ const onSubmit = async (formValues) => {
   }
 
   try {
-    const res = await axios.put(`/api/content/${section}`, formData, {
+    const res = await axios.put(`${API_BASE}/api/content/${section}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${getToken()}`,

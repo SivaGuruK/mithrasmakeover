@@ -9,6 +9,7 @@ import { setToken, isAuthenticated } from '../../utils/auth'
 
 
 const AdminLogin = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -23,7 +24,7 @@ const AdminLogin = () => {
   const onSubmit = async (data) => {
     setLoading(true)
     try {
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post(`${API_BASE}/api/auth/login`, {
         email: data.email,
         password: data.password
       })

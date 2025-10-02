@@ -7,6 +7,7 @@ import axios from 'axios'
 import { getToken } from "../../utils/auth"
 
 const AdminServices = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [services, setServices] = useState([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
@@ -21,7 +22,7 @@ const AdminServices = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/api/services')
+        const response = await axios.get(`${API_BASE}/api/services`)
         setServices(response.data.data)
       } catch (error) {
         console.error('Error fetching services:', error)
@@ -55,7 +56,7 @@ const AdminServices = () => {
 
   const handleToggleStatus = async (serviceId, currentStatus) => {
     try {
-      await axios.put(`/api/services/${serviceId}`, { isActive: !currentStatus },
+      await axios.put(`${API_BASE}/api/services/${serviceId}`, { isActive: !currentStatus },
       {
         headers: {
           Authorization: `Bearer ${getToken()}`
@@ -75,7 +76,7 @@ const AdminServices = () => {
   const handleDeleteService = async (serviceId) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
-        await axios.delete(`/api/services/${serviceId}`, {
+        await axios.delete(`${API_BASE}/api/services/${serviceId}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`
           }
@@ -116,7 +117,7 @@ const AdminServices = () => {
 
       if (editingService) {
         response = await axios.put(
-          `/api/services/${editingService._id}`,
+          `${API_BASE}/api/services/${editingService._id}`,
           formData,
           {
             headers: {
@@ -129,7 +130,7 @@ const AdminServices = () => {
         setServices(services.map(s => (s._id === editingService._id ? response.data.data : s)))
         toast.success('Service updated successfully')
       } else {
-        response = await axios.post('/api/services/', formData, {
+        response = await axios.post(`${API_BASE}/api/services/`, formData, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
             'Content-Type': 'multipart/form-data',

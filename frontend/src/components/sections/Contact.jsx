@@ -6,6 +6,7 @@ import axios from 'axios'
 import { FaWhatsapp } from 'react-icons/fa'
 
 const Contact = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
   const [contactInfo, setContactInfo] = useState({})
   const [loading, setLoading] = useState(true)
@@ -13,7 +14,7 @@ const Contact = () => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await axios.get('/api/content/contact')
+        const response = await axios.get(`${API_BASE}/api/content/contact`)
         setContactInfo(response.data.data.data)
       } catch (error) {
         console.error('Error fetching contact info:', error)

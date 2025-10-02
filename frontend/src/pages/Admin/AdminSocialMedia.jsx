@@ -16,6 +16,8 @@ import axios from 'axios'
 import { getToken } from "../../utils/auth"
 
 const AdminSocialMedia = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
   const [socialStats, setSocialStats] = useState([])
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(true)
@@ -24,13 +26,13 @@ const AdminSocialMedia = () => {
   useEffect(() => {
     const fetchSocialData = async () => {
       try {
-        const statsResponse = await axios.get('/api/social-media/stats', {
+        const statsResponse = await axios.get(`${API_BASE}/api/social-media/stats`, {
           headers: {
             Authorization: `Bearer ${getToken()}`
           }
         });
 
-        const suggestionsResponse = await axios.get('/api/social-media/suggestions', {
+        const suggestionsResponse = await axios.get(`${API_BASE}/api/social-media/suggestions`, {
           headers: {
             Authorization: `Bearer ${getToken()}`
           }
@@ -73,7 +75,7 @@ const AdminSocialMedia = () => {
     setUpdating(true)
     try {
       await axios.post(
-        `/api/social-media/${platform}/update`,
+        `${API_BASE}/api/social-media/${platform}/update`,
         {},
         {
           headers: {

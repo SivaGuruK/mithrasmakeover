@@ -6,6 +6,7 @@ import axios from 'axios'
 import { getToken } from "../../utils/auth"
 
 const AdminTestimonials = () => {
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
   const [testimonials, setTestimonials] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all') 
@@ -14,7 +15,7 @@ const AdminTestimonials = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get('/api/testimonials/all',{
+        const response = await axios.get(`${API_BASE}/api/testimonials/all`,{
                                 headers: {
                                   Authorization: `Bearer ${getToken()}`
                                 }})
@@ -32,7 +33,7 @@ const AdminTestimonials = () => {
 
   const handleApprove = async (testimonialId) => {
     try {
-      await axios.put(`/api/testimonials/${testimonialId}/approve`,{},{
+      await axios.put(`${API_BASE}/api/testimonials/${testimonialId}/approve`,{},{
                               headers: {
                                 Authorization: `Bearer ${getToken()}`
                               }})
@@ -51,7 +52,7 @@ const AdminTestimonials = () => {
   const handleReject = async (testimonialId) => {
     if (window.confirm('Are you sure you want to reject this testimonial?')) {
       try {
-        await axios.delete(`/api/testimonials/${testimonialId}`,{
+        await axios.delete(`${API_BASE}/api/testimonials/${testimonialId}`,{
                                 headers: {
                                   Authorization: `Bearer ${getToken()}`
                                 }})
@@ -67,7 +68,7 @@ const AdminTestimonials = () => {
   const handleToggleVisibility = async (testimonialId, currentStatus) => {
     try {
       await axios.put(
-        `/api/testimonials/${testimonialId}`,
+        `${API_BASE}/api/testimonials/${testimonialId}`,
         { isActive: !currentStatus },
         {
           headers: {
