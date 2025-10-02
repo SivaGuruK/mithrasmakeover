@@ -17,7 +17,6 @@ const galleryRoutes = require('./routes/gallery');
 const testimonialRoutes = require('./routes/testimonials');
 const bookingRoutes = require('./routes/bookings');
 const analyticsRoutes = require('./routes/analytics');
-const socialMediaRoutes = require('./routes/socialMedia');
 const adminRoutes = require('./routes/admin');
 
 // Middleware
@@ -52,7 +51,6 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/analytics', analyticsRoutes);
-app.use('/api/social-media', socialMediaRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Health check
